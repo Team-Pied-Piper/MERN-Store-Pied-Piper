@@ -1,6 +1,7 @@
 import Usuario from "../models/Usuario.js"; //importar modelo
 import generarId from "../helpers/generarId.js";
 import generarJWT from "../helpers/generarJWT.js";
+import { emailRegistro, emailOlvidePassword } from "../helpers/emails.js";
 
 const registrar = async (req, res) => {
   //----------Verificar SI El Email Ya Existe en DB----------
@@ -16,8 +17,19 @@ const registrar = async (req, res) => {
   try {
     const usuario = new Usuario(req.body);
     usuario.token = generarId(); //agrega token id a usuario
-    const usuarioAlmacenado = await usuario.save();
-    res.json(usuarioAlmacenado);
+    await usuario.save();
+
+    //----------Enviar Correo Con Token----------
+    emailRegistro({
+      email: usuario.email,
+      nombre: usuario.nombre,
+      token: usuario.token,
+    });
+    //----------Enviar Correo Con Token----------
+
+    res.json({
+      msg: "Usuario creado correctamente, revisa tu correo para confirmar la cuenta",
+    });
   } catch (error) {
     console.log(error);
   }
@@ -79,14 +91,23 @@ const olvidePassword = async (req, res) => {
   const { email } = req.body;
   const usuario = await Usuario.findOne({ email });
   if (!usuario) {
-    const error = new Error(`El correo: ${email} NO esta registrado`);
+    const error = new Error(`Correo NO registrado`);
     return res.status(404).json({ msg: error.message });
   }
   //----------Verificar SI El Email Ya Existe en DB----------
   try {
     usuario.token = generarId();
     await usuario.save();
-    res.json({ msg: "Hemos enviado un email con las instrucciones" });
+
+    //----------Enviar Correo----------
+    emailOlvidePassword({
+      email: usuario.email,
+      nombre: usuario.nombre,
+      token: usuario.token,
+    });
+    //----------Enviar Correo----------
+
+    res.json({ msg: "Hemos enviado un correo con las instrucciones" });
   } catch (error) {
     console.log(error);
   }
