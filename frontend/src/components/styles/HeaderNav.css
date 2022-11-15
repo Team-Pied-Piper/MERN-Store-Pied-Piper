@@ -1,54 +1,56 @@
-.header{
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 60px;
   border-bottom: 2px solid black;
 }
-.header__izquierda{
+.header__izquierda {
   display: flex;
   align-items: center;
   padding-left: 15px;
 }
-.header__nav-ul{
+.header__nav-ul {
   display: flex;
   align-items: center;
   gap: 15px;
+  margin-left: 30px;
 }
-.header__nav-ul li{
+.header__nav-ul li {
   list-style: none;
 }
-.header__nav-ul li a{
+.header__nav-ul li a {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 60px;
   text-decoration: none;
   color: var(--color-secundario);
-  font-weight:bolder;
+  font-weight: bolder;
   text-transform: uppercase;
   font-size: 16px;
 }
-.header__nav-ul li a:hover{
+.header__nav-ul li a:hover {
   color: var(--color-principal);
   transition: all 300ms;
 }
-.header__derecha{
+.header__derecha {
   display: flex;
   align-items: center;
   gap: 18px;
   padding-right: 16px;
 }
-.header__carrito-conetenedor{
+.header__carrito-conetenedor {
   position: relative;
 }
-.header__carrito{
+.header__carrito {
   width: 30px;
 }
-.header__carrito:hover, .header__carrito-cuenta:hover{
+.header__carrito:hover,
+.header__carrito-cuenta:hover {
   cursor: pointer;
 }
-.header__carrito-cuenta{
+.header__carrito-cuenta {
   font-weight: bold;
   text-align: center;
   width: 14px;
@@ -61,9 +63,9 @@
   padding: 2px;
   font-size: 12px;
 }
-.header__user{
+.header__user {
   color: rgb(63, 63, 63);
-  font-weight:bolder;
+  font-weight: bolder;
   text-transform: uppercase;
   font-size: 16px;
   height: 60px;
@@ -71,11 +73,11 @@
   display: flex;
   align-items: center;
 }
-.header__user:hover{
+.header__user:hover {
   cursor: pointer;
-  color: #007C5C;
+  color: #007c5c;
   transition: all 300ms;
 }
-.header__nav-ul li .active{
-  color: #007C5C;
+.header__nav-ul li .active {
+  color: #007c5c;
 }

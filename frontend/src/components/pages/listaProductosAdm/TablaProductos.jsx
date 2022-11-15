@@ -18,7 +18,7 @@ const TablaProductos = ({ data, setDataToEdit, deleteData }) => {
           {data.length > 0 ? (
             data.map((el) => (
               <TablaFilas
-                key={el.id}
+                key={el._id}
                 el={el}
                 setDataToEdit={setDataToEdit}
                 deleteData={deleteData}

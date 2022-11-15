@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { Alerta } from "../../Alerta";
+import clienteAxios from "../../../../config/clienteAxios";
 
 const OlvidePassword = () => {
   const [email, setEmail] = useState("");
@@ -18,15 +18,13 @@ const OlvidePassword = () => {
       return;
     }
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/usuarios/olvide-password`,
-        { email }
-      );
+      const { data } = await clienteAxios.post(`/usuarios/olvide-password`, {
+        email,
+      });
       setAlerta({
         msg: data.msg,
         error: false,
       });
-      console.log(data);
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,

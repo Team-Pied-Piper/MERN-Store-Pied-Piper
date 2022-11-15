@@ -5,8 +5,13 @@ import { helpHttp } from "../../../helpers/helpHttp";
 import { Loader } from "../loader/Loader";
 import { Message } from "../loader/Message";
 import "../../styles/ListaProductosAdm.css";
+import { Footer } from "../../layout/Footer";
+import { HeaderNavAdmin } from "../../layout/HeaderNavAdmin";
+import useProductos from "../../../hooks/useProductos";
 
 const ListaProductosAdmin = () => {
+  const { productos } = useProductos();
+
   const [db, setDb] = useState(null);
   const [dataToEdit, setDataToEdit] = useState(null);
 
@@ -15,7 +20,7 @@ const ListaProductosAdmin = () => {
 
   //Datos del api - llamado a archivo helper que ayuda a consumir api y sus verbos
   let api = helpHttp();
-  let url = "http://localhost:5000/productos";
+  let url = "http://localhost:4000/api/productos";
 
   useEffect(() => {
     setloading(true);
@@ -99,37 +104,41 @@ const ListaProductosAdmin = () => {
   // Eliminar producto en DB ---------------------------------------------
 
   return (
-    <section className="section">
-      <div className="section__titulo-container">
-        <h1 className="section__titulo">Lista de productos</h1>
-      </div>
-      <div className="listaProductos__contenedor">
-        <div className="listaProductos__tabla">
-          {loading && <Loader />}
-          {error && (
-            <Message
-              msg={`Error ${error.status}: ${error.statusText}`}
-              bgColor="#dc3545"
-            />
-          )}
-          {db && (
-            <TablaProductos
-              data={db}
+    <>
+      <HeaderNavAdmin />
+      <section className="section">
+        <div className="section__titulo-container">
+          <h1 className="section__titulo">Lista de productos</h1>
+        </div>
+        <div className="listaProductos__contenedor">
+          <div className="listaProductos__tabla">
+            {loading && <Loader />}
+            {error && (
+              <Message
+                msg={`Error ${error.status}: ${error.statusText}`}
+                bgColor="#dc3545"
+              />
+            )}
+            {db && (
+              <TablaProductos
+                data={db}
+                setDataToEdit={setDataToEdit}
+                deleteData={deleteData}
+              />
+            )}
+          </div>
+          <div className="listaProductos__formulario">
+            <FormProduct
+              createData={createData}
+              updateData={updateData}
+              dataToEdit={dataToEdit}
               setDataToEdit={setDataToEdit}
-              deleteData={deleteData}
             />
-          )}
+          </div>
         </div>
-        <div className="listaProductos__formulario">
-          <FormProduct
-            createData={createData}
-            updateData={updateData}
-            dataToEdit={dataToEdit}
-            setDataToEdit={setDataToEdit}
-          />
-        </div>
-      </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 };
 

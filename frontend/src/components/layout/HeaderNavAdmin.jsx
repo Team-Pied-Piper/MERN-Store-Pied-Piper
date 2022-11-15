@@ -4,7 +4,7 @@ import logo from "../img/logo-pied-horizontal.png";
 import iconCard from "../img/icon-cart.svg";
 import { Carrito } from "../pages/carrito/Carrito";
 
-const HeaderNav = () => {
+const HeaderNavAdmin = () => {
   return (
     <header className="header">
       <div className="header__izquierda">
@@ -15,39 +15,29 @@ const HeaderNav = () => {
           <ul className="header__nav-ul">
             <li>
               <NavLink
-                to={"/lista-productos"}
+                to={"/lista-productos-admin"}
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Lista De Productos
+                Lista productos
               </NavLink>
             </li>
             <li>
               <NavLink
-                to={"/carrito"}
+                to={"/lista-ventas-admin"}
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Carrito
+                ventas
               </NavLink>
             </li>
           </ul>
         </nav>
       </div>
       <div className="header__derecha">
-        <div className="header__carrito-conetenedor">
-          <NavLink to={"/carrito"}>
-            {/* <p className="header__carrito-cuenta">{0}</p> */}
-
-            <img
-              src={iconCard}
-              alt="icono carrito"
-              className="header__carrito"
-            />
-          </NavLink>
-        </div>
-        <pre className="header__user">Login</pre>
+        <div className="header__carrito-conetenedor"></div>
+        <pre className="header__user">Salir</pre>
       </div>
     </header>
   );
 };
 
-export { HeaderNav };
+export { HeaderNavAdmin };

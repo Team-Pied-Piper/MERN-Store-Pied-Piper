@@ -5,6 +5,8 @@ import { Message } from "../loader/Message";
 import carritoDb from "../carrito/carritoDb.js";
 import "../../styles/ListaPoductos.css";
 import "../../styles/Product.css";
+import { HeaderNav } from "../../layout/HeaderNav";
+import { Footer } from "../../layout/Footer";
 
 const ListaProductos = ({ setContadorProductos, CuentaProductos }) => {
   const [Db, setDb] = useState(null); //useState para traer API
@@ -83,52 +85,58 @@ const ListaProductos = ({ setContadorProductos, CuentaProductos }) => {
   //agregar a carrito
 
   return (
-    <section className="section">
-      <div className="section__titulo-container">
-        <h1 className="section__titulo">Nuestros Productos</h1>
-      </div>
-      <div className="section__container-productos">
-        {Loading && <Loader />}
-        {Error && (
-          <Message
-            msg={`Error ${Error.status}: ${Error.statusText}`}
-            bgColor="#dc3545"
-          />
-        )}
-        {Db &&
-          Db.map((item) => (
-            <div className="product" key={item.id}>
-              <img className="product__img" src={item.img} alt="producto" />
-              <h2 className="product__name">{item.nombre}</h2>
-              <div className="product__details">
-                <p className="product__price">
-                  $
-                  <span className="product__price-cost">
-                    {formatearMoneda(item.precio)}
-                  </span>
-                </p>
-                <p className="product__stock">
-                  Stock:{" "}
-                  <span className="product__stock-count">{item.stock}</span>
-                </p>
-                <button
-                  className={item.stock > 0 ? "AddCartBtn" : "NoDisponibleBtn"}
-                  onClick={
-                    item.stock > 0
-                      ? () => agreagarCarrito(item.id)
-                      : () =>
-                          alert(
-                            "Lo sentimos en el momento no contamos con este producto. pero pronto lo traeremos de nuevo!"
-                          )
-                  }
-                >
-                  {item.stock > 0 ? "Agragar" : "No Disponible 😢"}
-                </button>
+    <>
+      <HeaderNav />
+      <section className="section">
+        <div className="section__titulo-container">
+          <h1 className="section__titulo">Nuestros Productos</h1>
+        </div>
+        <div className="section__container-productos">
+          {Loading && <Loader />}
+          {Error && (
+            <Message
+              msg={`Error ${Error.status}: ${Error.statusText}`}
+              bgColor="#dc3545"
+            />
+          )}
+          {Db &&
+            Db.map((item) => (
+              <div className="product" key={item.id}>
+                <img className="product__img" src={item.img} alt="producto" />
+                <h2 className="product__name">{item.nombre}</h2>
+                <div className="product__details">
+                  <p className="product__price">
+                    $
+                    <span className="product__price-cost">
+                      {formatearMoneda(item.precio)}
+                    </span>
+                  </p>
+                  <p className="product__stock">
+                    Stock:{" "}
+                    <span className="product__stock-count">{item.stock}</span>
+                  </p>
+                  <button
+                    className={
+                      item.stock > 0 ? "AddCartBtn" : "NoDisponibleBtn"
+                    }
+                    onClick={
+                      item.stock > 0
+                        ? () => agreagarCarrito(item.id)
+                        : () =>
+                            alert(
+                              "Lo sentimos en el momento no contamos con este producto. pero pronto lo traeremos de nuevo!"
+                            )
+                    }
+                  >
+                    {item.stock > 0 ? "Agragar" : "No Disponible 😢"}
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-      </div>
-    </section>
+            ))}
+        </div>
+      </section>
+      <Footer />
+    </>
   );
 };
 
