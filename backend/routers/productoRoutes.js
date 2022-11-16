@@ -10,12 +10,15 @@ import checkAuth from "../middleware/checkAuth.js";
 
 const productoRouter = express.Router();
 
-productoRouter.route("/").get(obtenerProductos).post(nuevoProducto);
+productoRouter
+  .route("/")
+  .get(checkAuth, obtenerProductos)
+  .post(checkAuth, nuevoProducto);
 
 productoRouter
   .route("/:id")
-  .get(obtenerProducto)
-  .put(editarProducto)
-  .delete(eliminarProducto);
+  .get(checkAuth, obtenerProducto)
+  .put(checkAuth, editarProducto)
+  .delete(checkAuth, eliminarProducto);
 
 export default productoRouter;
