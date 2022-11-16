@@ -2,7 +2,7 @@ import Producto from "../models/Producto.js";
 
 const nuevoProducto = async (req, res) => {
   const producto = new Producto(req.body);
-  producto.creador = req.usuario._id;
+  // producto.creador = req.usuario._id;
   try {
     const productoAlmacenado = await producto.save();
     res.json(productoAlmacenado);

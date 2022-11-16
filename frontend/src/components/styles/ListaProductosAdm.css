@@ -58,6 +58,7 @@ td {
 .listaProductos__contenedor-inputs input, textarea{
   width: 80%;
   resize: none;
+  border: 1px solid rgba(167, 167, 167, 0.553);
 }
 .listaProductos__contenedor-btn{
   margin-top: 30px;
@@ -82,4 +83,10 @@ td {
   -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.75);
+}
+.listaProducto__contenedorAcciones{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
 }

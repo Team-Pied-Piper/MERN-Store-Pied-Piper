@@ -19,7 +19,7 @@ const TablaVentas = ({ data }) => {
               <td colSpan="3">Sin datos</td>
             </tr>
           ) : (
-            data.map((el) => <TablaVentasFilas key={el.id} el={el} />)
+            data.map((el) => <TablaVentasFilas key={el._id} el={el} />)
           )}
         </tbody>
       </table>

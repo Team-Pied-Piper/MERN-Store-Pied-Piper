@@ -10,7 +10,7 @@ import checkAuth from "../middleware/checkAuth.js";
 
 const productoRouter = express.Router();
 
-productoRouter.route("/").get(obtenerProductos).post(checkAuth, nuevoProducto);
+productoRouter.route("/").get(obtenerProductos).post(nuevoProducto);
 
 productoRouter
   .route("/:id")

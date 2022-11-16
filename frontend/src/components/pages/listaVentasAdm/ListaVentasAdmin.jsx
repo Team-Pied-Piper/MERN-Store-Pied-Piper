@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { helpHttp } from "../../../helpers/helpHttp";
 import { Loader } from "../loader/Loader";
 import { Message } from "../loader/Message";
+import { HeaderNavAdmin } from "../../layout/HeaderNavAdmin";
+import { Footer } from "../../layout/Footer";
 
 const ListaVentasAdmin = () => {
   const [Db, setDb] = useState(null);
@@ -10,7 +12,7 @@ const ListaVentasAdmin = () => {
   const [loading, setloading] = useState(false);
 
   let api = helpHttp();
-  let url = "http://localhost:5000/ventas";
+  let url = `${import.meta.env.VITE_BACKEND_URL}/api/ventas`;
 
   useEffect(() => {
     setloading(true);
@@ -30,17 +32,21 @@ const ListaVentasAdmin = () => {
   }, [url]);
 
   return (
-    <div className="section__titulo-container">
-      <h1 className="section__titulo">Lista de ventas</h1>
-      {loading && <Loader />}
-      {error && (
-        <Message
-          msg={`Error ${error.status}: ${error.statusText}`}
-          bgColor="#dc3545"
-        />
-      )}
-      {Db && <TablaVentas data={Db} />}
-    </div>
+    <>
+      <HeaderNavAdmin />
+      <div className="section__titulo-container">
+        <h1 className="section__titulo">Lista de ventas</h1>
+        {loading && <Loader />}
+        {error && (
+          <Message
+            msg={`Error ${error.status}: ${error.statusText}`}
+            bgColor="#dc3545"
+          />
+        )}
+        {Db && <TablaVentas data={Db} />}
+      </div>
+      <Footer />
+    </>
   );
 };
 

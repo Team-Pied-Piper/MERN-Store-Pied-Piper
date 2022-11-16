@@ -20,7 +20,7 @@ const ListaProductosAdmin = () => {
 
   //Datos del api - llamado a archivo helper que ayuda a consumir api y sus verbos
   let api = helpHttp();
-  let url = "http://localhost:4000/api/productos";
+  let url = `${import.meta.env.VITE_BACKEND_URL}/api/productos`;
 
   useEffect(() => {
     setloading(true);
@@ -41,11 +41,11 @@ const ListaProductosAdmin = () => {
 
   // Crear nuevo producto en DB ---------------------------------------------
   const createData = (data) => {
-    data.id = Date.now();
+    //data.id = Date.now();
 
     let options = {
       body: data,
-      headers: { "content-type": "application/json" },
+      headers: { "Content-Type": "application/json" },
     };
 
     api.post(url, options).then((res) => {
@@ -60,7 +60,7 @@ const ListaProductosAdmin = () => {
 
   // Actualizar producto en DB ---------------------------------------------
   const updateData = (data) => {
-    let edpoint = `${url}/${data.id}`;
+    let edpoint = `${url}/${data._id}`;
     let options = {
       body: data,
       headers: { "content-type": "application/json" },
@@ -68,7 +68,7 @@ const ListaProductosAdmin = () => {
 
     api.put(edpoint, options).then((res) => {
       if (!res.err) {
-        let newData = db.map((el) => (el.id === data.id ? data : el));
+        let newData = db.map((el) => (el._id === data._id ? data : el));
         setDb([...db, res]);
         setDb(newData);
       } else {
@@ -79,19 +79,17 @@ const ListaProductosAdmin = () => {
   // Actualizar producto en DB ---------------------------------------------
 
   // Eliminar producto en DB ---------------------------------------------
-  const deleteData = (id) => {
-    let isDelete = window.confirm(
-      `¿Estas seguro de eliminar el registro con id "${id}"`
-    );
+  const deleteData = (_id) => {
+    let isDelete = window.confirm(`¿Esta seguro de eliminar el registro?"`);
     if (isDelete) {
-      let edpoint = `${url}/${id}`;
+      let edpoint = `${url}/${_id}`;
       let options = {
         headers: { "content-type": "application/json" },
       };
 
       api.del(edpoint, options).then((res) => {
         if (!res.err) {
-          let newData = db.filter((el) => el.id !== id);
+          let newData = db.filter((el) => el._id !== _id);
           setDb(newData);
         } else {
           seterror(res);

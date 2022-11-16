@@ -3,7 +3,7 @@ import deleteImg from "../../img/delete.png";
 import editImg from "../../img/edit.png";
 
 const TablaFilas = ({ el, setDataToEdit, deleteData }) => {
-  let { nombre, precio, stock, id } = el;
+  let { nombre, precio, stock, _id } = el;
   //formateador de moneda
   function formatearMoneda(numero) {
     return new Intl.NumberFormat().format(numero);
@@ -22,7 +22,7 @@ const TablaFilas = ({ el, setDataToEdit, deleteData }) => {
       <td>{nombre}</td>
       <td>${formatearMoneda(precio)}</td>
       <td>{stock}</td>
-      <td>
+      <td className="listaProducto__contenedorAcciones">
         <img
           src={editImg}
           alt="icono editar"
@@ -32,7 +32,7 @@ const TablaFilas = ({ el, setDataToEdit, deleteData }) => {
         <img
           src={deleteImg}
           alt="icono eliminar"
-          onClick={() => deleteData(id)}
+          onClick={() => deleteData(_id)}
           className="listaProductos__icono"
         />
       </td>

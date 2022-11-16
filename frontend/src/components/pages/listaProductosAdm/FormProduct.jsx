@@ -6,7 +6,7 @@ const initialForm = {
   precio: "",
   stock: "",
   img: "",
-  id: null,
+  _id: null,
 };
 const FormProduct = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
   const [form, setForm] = useState(initialForm);
@@ -38,8 +38,9 @@ const FormProduct = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
       alert("Por favor completa todos los datos");
       return;
     }
-    if (form.id === null) {
+    if (form._id === null) {
       createData(form);
+      console.log(form);
     } else {
       updateData(form);
     }

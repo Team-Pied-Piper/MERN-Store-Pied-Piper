@@ -9,8 +9,8 @@ import { Registrar } from "../components/pages/login/Registrar";
 import { AuthProvider } from "../context/AuthProvider";
 import { ProductosProvider } from "../context/ProductosProvaider";
 import RutaProtegida from "../components/layout/RutaProtegida";
-import { ListaProductos } from "../components/pages/listaProductos/ListaProductos";
 import { ListaProductosAdmin } from "../components/pages/listaProductosAdm/ListaProductosAdmin";
+import { ListaVentasAdmin } from "../components/pages/listaVentasAdm/ListaVentasAdmin";
 
 const Rutas = () => {
   return (
@@ -18,6 +18,7 @@ const Rutas = () => {
       <AuthProvider>
         <ProductosProvider>
           <Routes>
+            //RUTAS PUBLICAS - LOGIN
             <Route path="/" element={<AuthLayout />}>
               <Route index element={<Login />} />
               <Route path="registrar" element={<Registrar />} />
@@ -28,12 +29,12 @@ const Rutas = () => {
               />
               <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
             </Route>
-
-            <Route path="/tienda-pied-piper" element={<RutaProtegida />}>
+            //RUTAS PUBLICAS - LOGIN //RUTAS PRIVADAS -
+            <Route path="/PiedPiperAdmin" element={<RutaProtegida />}>
               <Route index element={<ListaProductosAdmin />} />
+              <Route path="lista-ventas" element={<ListaVentasAdmin />} />
             </Route>
-
-            <Route path="/admin-tienda-pied-piper"></Route>
+            //RUTAS PRIVADAS -
           </Routes>
         </ProductosProvider>
       </AuthProvider>

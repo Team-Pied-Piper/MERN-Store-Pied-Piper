@@ -11,7 +11,7 @@ const TablaVentasFilas = ({ el }) => {
   return (
     <tr>
       <td>{el.fecha}</td>
-      <td>{el.id}</td>
+      <td>{el._id}</td>
       <td>{el.cantidad}</td>
       <td>{formatearMoneda(el.valor)}</td>
     </tr>

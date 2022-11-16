@@ -26,12 +26,11 @@ const AuthProvider = ({ children }) => {
       try {
         const { data } = await clienteAxios.get("/usuarios/perfil", config);
         setAuth(data);
-        navigate("/tienda-pied-piper");
+        //navigate("/PiedPiperAdmin");
       } catch (error) {
         setAuth({});
-      } finally {
-        setCargando(false);
       }
+      setCargando(false);
     };
     autenticarUsuario();
   }, []);
