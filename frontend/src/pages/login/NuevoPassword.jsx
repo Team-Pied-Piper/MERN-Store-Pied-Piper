@@ -71,7 +71,7 @@ const NuevoPassword = () => {
   return (
     <>
       <h1 className="text-emerald-700 font-black text-5xl capitalize text-center">
-        Reestablece tu contraseña <br />
+        Restablece tu contraseña <br />
         <span className="text-slate-700"> Pied-Piper</span>
       </h1>
       {msg && <Alerta alerta={alerta} />}

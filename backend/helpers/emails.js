@@ -44,11 +44,11 @@ export const emailOlvidePassword = async (datos) => {
   const info = await transport.sendMail({
     from: '"Tienda Pied-Piper - Administracion" <cuentas@pied-piper.com>',
     to: email,
-    subject: "Tienda Pied-Piper - Reestablece tu Contraseña",
-    text: "Reestablece tu Contraseña para Tienda Pied-Piper",
-    html: `<p>Hola: ${nombre} has solicitado Reestablecer tu Contraseña.</p>
+    subject: "Tienda Pied-Piper - Restablece tu Contraseña",
+    text: "Restablece tu Contraseña para Tienda Pied-Piper",
+    html: `<p>Hola: ${nombre} has solicitado Restablecer tu Contraseña.</p>
     <p>Sigue el siguiente enlace para generar una nueva contraseña: 
-    <a href="${process.env.FRONTEND_URL}/olvide-password/${token}">Reestablece Contraseña</a>
+    <a href="${process.env.FRONTEND_URL}/olvide-password/${token}">Restablece Contraseña</a>
     </p>
 
     <p>Si tu no solicitaste este correo, puedes ignorar el correo</p>

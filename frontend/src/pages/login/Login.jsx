@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Alerta } from "../../components/Alerta"; //Mensajes de alerta
 import clienteAxios from "../../../config/clienteAxios"; //Cliente que conecta front con back
+import useAuth from "../../hooks/useAuth"; //hook personalizado con contexto de autenticacion
 
 const Login = () => {
   //trae datos de formulario
@@ -11,6 +12,11 @@ const Login = () => {
 
   const [alerta, setAlerta] = useState({}); //useState para Alert
   const navigate = useNavigate(); //useNavigate para redirigir a una ruta
+
+  //-----hook personalizado de contexto de autenticacion-----
+  const { setAuth } = useAuth();
+
+  //-----hook personalizado de contexto de autenticacion-----
 
   //funcion con formulario
   const handleSubmit = async (e) => {
@@ -36,8 +42,9 @@ const Login = () => {
       setAlerta({}); //Borra alertas
 
       localStorage.setItem("token", data.token); //genera un token de sesion en localStorange
+      setAuth(data); //guarda token en contexto autenticacion
 
-      navigate("/PiedPiper"); //redirige la pagina
+      //navigate("/PiedPiper"); //redirige la pagina
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,
