@@ -6,10 +6,11 @@ import cerrarsesion from "../images/opcion-de-cerrar-sesion.png";
 const Header = () => {
   return (
     <header className="header">
-      <div className="header__contenedor-derecha">
-        <div className="header__contenedor-logo">
-          <img src={logo} alt="logo" className="header__logo" />
-        </div>
+      <div className="header__contenedor-logo">
+        <img src={logo} alt="logo" className="header__logo" />
+      </div>
+
+      <div className="header__contenedor__nav-salir">
         <div className="header__contenedor-nav">
           <nav className="header__nav">
             <ul className=" header__ul">
@@ -28,9 +29,10 @@ const Header = () => {
             </ul>
           </nav>
         </div>
-      </div>
-      <div className="header__contenedor-salir">
-        <img src={cerrarsesion} alt="salir" className="header__salir" />
+
+        <div className="header__contenedor-salir">
+          <img src={cerrarsesion} alt="salir" className="header__salir" />
+        </div>
       </div>
     </header>
   );

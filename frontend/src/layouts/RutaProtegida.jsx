@@ -1,4 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom";
+import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import useAuth from "../hooks/useAuth";
 import { Loader } from "./loader/Loader";
@@ -15,6 +16,7 @@ const RutaProtegida = () => {
           <main>
             <Outlet></Outlet>
           </main>
+          <Footer />
         </div>
       ) : (
         <Navigate to="/" />

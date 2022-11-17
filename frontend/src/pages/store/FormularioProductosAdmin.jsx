@@ -33,11 +33,14 @@ const FormularioProductosAdmin = () => {
     setImg("");
   };
 
+  //validacion titulo
+  const [editar, setEditar] = useState(false);
+
   const { msg } = alerta;
   return (
     <div>
       <h3 className="listaProductos__titulo">
-        {/* {dataToEdit ? "Editar producto seleccionado" : "Agregar nuevo producto"} */}
+        {editar ? "Editar producto seleccionado" : "Agregar nuevo producto"}
       </h3>
       <form
         onSubmit={handleSubmit}
@@ -97,6 +100,7 @@ const FormularioProductosAdmin = () => {
             onChange={(e) => setImg(e.target.value)}
           />
         </div>
+        {msg && <Alerta alerta={alerta} />}
         {/* //-----input botones */}
         <div className="listaProductos__contenedor-btn">
           <input
@@ -111,7 +115,6 @@ const FormularioProductosAdmin = () => {
           />
         </div>
       </form>
-      {msg && <Alerta alerta={alerta} />}
     </div>
   );
 };

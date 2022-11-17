@@ -11,7 +11,7 @@ const ProductosAdmin = () => {
   return (
     <section className="section">
       <div className="section__titulo-container">
-        <h1 className="section__titulo">Lista de productos</h1>
+        <h1 className="section__titulo">Administrador de productos</h1>
       </div>
       <div className="listaProductos__contenedor">
         <div className="listaProductos__tabla">
