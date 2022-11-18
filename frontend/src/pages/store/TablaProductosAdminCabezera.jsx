@@ -1,6 +1,6 @@
 import { TablaProductosAdminFilas } from "./TablaProductosAdminFilas";
 
-const TablaProductosAdminCabezera = () => {
+const TablaProductosAdminCabezera = ({ data, setdataEdit }) => {
   return (
     <div>
       <h3 className="listaProductos__titulo">Lista de todos los productos</h3>
@@ -15,7 +15,19 @@ const TablaProductosAdminCabezera = () => {
           </tr>
         </thead>
         <tbody>
-          <TablaProductosAdminFilas />
+          {data.length ? (
+            data.map((el) => (
+              <TablaProductosAdminFilas
+                key={el._id}
+                el={el}
+                setdataEdit={setdataEdit}
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6}>Sin datos</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

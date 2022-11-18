@@ -1,12 +1,13 @@
 import "../../styles/productosAdmin.css";
-import useProductos from "../../hooks/useProductos";
 import { TablaProductosAdminCabezera } from "./TablaProductosAdminCabezera";
 import { FormularioProductosAdmin } from "./FormularioProductosAdmin";
+import useProductos from "../../hooks/useProductos";
+import { useState } from "react";
 
 const ProductosAdmin = () => {
   const { productos } = useProductos();
-
-  console.log(productos);
+  const [dataEdit, setdataEdit] = useState({});
+  console.log(`dataEdit= ${dataEdit}}`);
 
   return (
     <section className="section">
@@ -15,7 +16,10 @@ const ProductosAdmin = () => {
       </div>
       <div className="listaProductos__contenedor">
         <div className="listaProductos__tabla">
-          <TablaProductosAdminCabezera />
+          <TablaProductosAdminCabezera
+            data={productos}
+            setdataEdit={setdataEdit}
+          />
         </div>
         <div className="listaProductos__formulario">
           <FormularioProductosAdmin />

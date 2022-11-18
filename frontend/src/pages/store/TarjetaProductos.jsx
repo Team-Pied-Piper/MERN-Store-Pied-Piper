@@ -1,29 +1,35 @@
 import "../../styles/tarjetaProductos.css";
+import { Link } from "react-router-dom";
 
-const TarjetaProductos = () => {
+const TarjetaProductos = ({ el }) => {
+  let { img, nombre, precio, stock, id } = el;
+
+  //formateador de moneda
+  function formatearMoneda(numero) {
+    return new Intl.NumberFormat().format(numero);
+  }
+  //formateador de moneda
+
   return (
     <div className="section__container-productos">
       <div className="product">
-        <img
-          className="product__img"
-          src="https://m.media-amazon.com/images/I/51dqj3nsvPL._AC_UY327_FMwebp_QL65_.jpg"
-          alt="producto"
-        />
-        <h2 className="product__name">Mens Golf Polo</h2>
+        <img className="product__img" src={el.img} alt="producto" />
+        <Link to={`${el._id}`}>
+          <h2 className="product__name">{el.nombre}</h2>
+        </Link>
         <div className="product__details">
           <p className="product__price">
-            $<span className="product__price-cost">55000</span>
+            $
+            <span className="product__price-cost">
+              {formatearMoneda(el.precio)}
+            </span>
           </p>
           <p className="product__stock">
             Stock:
-            <span className="product__stock-count">23</span>
+            <span className="product__stock-count">{el.stock}</span>
           </p>
-          <button
-            className="AddCartBtn"
-            // className={item.stock > 0 ? "AddCartBtn" : "NoDisponibleBtn"}
-          >
-            Agragar 🛒
-            {/* {item.stock > 0 ? "Agragar" : "No Disponible 😢"} */}
+          <button className={el.stock > 0 ? "AddCartBtn" : "NoDisponibleBtn"}>
+            {el.stock > 0 ? "Agragar" : "No Disponible 😢"}
           </button>
         </div>
       </div>

@@ -17,6 +17,7 @@ import { Store } from "./pages/store/Store";
 import { ProductosAdmin } from "./pages/store/ProductosAdmin";
 import { Carrito } from "./pages/store/Carrito";
 import { VentasAdmin } from "./pages/store/VentasAdmin";
+import { Producto } from "./pages/store/Producto";
 //-----PAGINAS STORE-----
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
               <Route path="carrito" element={<Carrito />} />
               <Route path="productos-admin" element={<ProductosAdmin />} />
               <Route path="ventas-admin" element={<VentasAdmin />} />
+              <Route path=":id" element={<Producto />} />
             </Route>
           </Routes>
         </ProductosProvaider>
