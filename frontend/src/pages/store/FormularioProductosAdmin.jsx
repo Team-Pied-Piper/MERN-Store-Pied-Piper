@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Alerta } from "../../components/Alerta";
 import useProductos from "../../hooks/useProductos";
 
@@ -11,7 +11,36 @@ const FormularioProductosAdmin = () => {
   const [img, setImg] = useState("");
   //traer datos del formulario-----
 
-  const { mostrarAlerta, alerta, submitProducto } = useProductos(); //extraer funciones de hook personalizado
+  const { mostrarAlerta, alerta, submitProducto, DataToEdit, setDataToEdit } =
+    useProductos(); //extraer funciones de hook personalizado
+
+  //editar producto
+  useEffect(() => {
+    if (DataToEdit) {
+      setNombre(DataToEdit.nombre);
+      setDescripcion(DataToEdit.descripcion);
+      setPrecio(DataToEdit.precio);
+      setStock(DataToEdit.stock);
+      setImg(DataToEdit.img);
+    } else {
+      setNombre("");
+      setDescripcion("");
+      setPrecio("");
+      setStock("");
+      setImg("");
+    }
+  }, [DataToEdit]);
+
+  const handleReset = (e) => {
+    setNombre("");
+    setDescripcion("");
+    setPrecio("");
+    setStock("");
+    setImg("");
+    setDataToEdit(null);
+  };
+
+  //editar producto
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,14 +62,11 @@ const FormularioProductosAdmin = () => {
     setImg("");
   };
 
-  //validacion titulo
-  const [editar, setEditar] = useState(false);
-
   const { msg } = alerta;
   return (
     <div>
       <h3 className="listaProductos__titulo">
-        {editar ? "Editar producto seleccionado" : "Agregar nuevo producto"}
+        {DataToEdit ? "Editar producto seleccionado" : "Agregar nuevo producto"}
       </h3>
       <form
         onSubmit={handleSubmit}
@@ -111,6 +137,7 @@ const FormularioProductosAdmin = () => {
           <input
             type="reset"
             value="Limpiar"
+            onClick={handleReset}
             className="listaProductos__btn-limpiar"
           />
         </div>

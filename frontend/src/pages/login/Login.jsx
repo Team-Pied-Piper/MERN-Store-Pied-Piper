@@ -44,7 +44,7 @@ const Login = () => {
       localStorage.setItem("token", data.token); //genera un token de sesion en localStorange
       setAuth(data); //guarda token en contexto autenticacion
 
-      //navigate("/PiedPiper"); //redirige la pagina
+      navigate("/store-pied-piper");
     } catch (error) {
       setAlerta({
         msg: error.response.data.msg,

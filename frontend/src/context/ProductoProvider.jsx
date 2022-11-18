@@ -3,9 +3,10 @@ import clienteAxios from "../../config/clienteAxios";
 
 const ProductosContext = createContext();
 const ProductosProvaider = ({ children }) => {
-  const [productos, setProductos] = useState({});
+  const [productos, setProductos] = useState([]);
   const [alerta, setAlerta] = useState({}); //generar alertas de productos
   const [producto, setProducto] = useState({});
+  const [cargando, setCargando] = useState(false);
 
   //trar productos con useEfect
   useEffect(() => {
@@ -43,6 +44,68 @@ const ProductosProvaider = ({ children }) => {
 
   // Agregar nuevo producto
   const submitProducto = async (producto) => {
+    if (DataToEdit) {
+      await editarProducto(producto);
+    } else await nuevoProducto(producto);
+  };
+  // Obtener producto
+  const obtenerProducto = async (id) => {
+    setCargando(true);
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await clienteAxios.get(`/productos/${id}`, config);
+      setProducto(data);
+    } catch (error) {
+      console.log(error);
+    }
+    setCargando(false);
+  };
+  // Obtener producto
+
+  //Auto llenar formulario para editar
+  const [DataToEdit, setDataToEdit] = useState(null);
+  const editarProducto = async (producto) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const { data } = await clienteAxios.put(
+        `/productos/${DataToEdit._id}`,
+        producto,
+        config
+      );
+      const productosActualizados = productos.map((productoState) =>
+        productoState._id === data._id ? data : productoState
+      );
+      setProductos(productosActualizados);
+
+      setAlerta({
+        msg: "✔️ Producto modificado correctamente. ",
+        error: false,
+      });
+
+      setTimeout(() => {
+        setAlerta({});
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const nuevoProducto = async (producto) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -70,10 +133,10 @@ const ProductosProvaider = ({ children }) => {
       console.log(error);
     }
   };
-  // Agregar nuevo producto
+  //Auto llenar formulario para editar
 
-  // Obtener producto
-  const obtenerProducto = async (id) => {
+  //eliminar producto
+  const deleteProyecto = async (id) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -84,13 +147,28 @@ const ProductosProvaider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await clienteAxios.get(`/productos/${id}`, config);
-      setProducto(data);
+
+      const { data } = await clienteAxios.delete(`/productos/${id}`, config);
+
+      const productosActualizados = productos.filter(
+        (productoState) => productoState._id !== id
+      );
+
+      setProductos(productosActualizados);
+
+      setAlerta({
+        msg: "⛔ Producto eliminado correctamente. ",
+        error: false,
+      });
+
+      setTimeout(() => {
+        setAlerta({});
+      }, 3000);
     } catch (error) {
       console.log(error);
     }
   };
-  // Obtener producto
+  //eliminar producto
 
   return (
     <ProductosContext.Provider
@@ -101,6 +179,10 @@ const ProductosProvaider = ({ children }) => {
         submitProducto,
         obtenerProducto,
         producto,
+        cargando,
+        DataToEdit,
+        setDataToEdit,
+        deleteProyecto,
       }}
     >
       {children}

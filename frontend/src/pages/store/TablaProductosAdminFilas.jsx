@@ -2,7 +2,7 @@ import deleteImg from "../../images/delete.png";
 import editImg from "../../images/edit.png";
 import useProductos from "../../hooks/useProductos";
 
-const TablaProductosAdminFilas = ({ el, setdataEdit }) => {
+const TablaProductosAdminFilas = ({ el, editarProductoBtn }) => {
   let { img, nombre, precio, stock, id } = el;
 
   //formateador de moneda
@@ -11,14 +11,14 @@ const TablaProductosAdminFilas = ({ el, setdataEdit }) => {
   }
   //formateador de moneda
 
-  //obtener producto
-  const { obtenerProducto, producto } = useProductos();
-  const editarProducto = () => {
-    obtenerProducto(el._id);
-    setdataEdit(producto);
+  const { setDataToEdit, deleteProyecto } = useProductos();
+
+  const eliminarProducto = () => {
+    if (confirm("¿Deseas eliminar este producto?")) {
+      deleteProyecto(el._id);
+    }
   };
 
-  //obtener producto
   return (
     <tr>
       <td>
@@ -36,9 +36,13 @@ const TablaProductosAdminFilas = ({ el, setdataEdit }) => {
           src={editImg}
           alt="icono editar"
           className="listaProductos__icono"
-          onClick={() => editarProducto(el)}
+          onClick={() => setDataToEdit(el)}
         />
-        <img src={deleteImg} className="listaProductos__icono" />
+        <img
+          src={deleteImg}
+          className="listaProductos__icono"
+          onClick={() => eliminarProducto(el)}
+        />
       </td>
     </tr>
   );
