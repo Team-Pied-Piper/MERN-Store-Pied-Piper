@@ -152,6 +152,22 @@ const Carrito = () => {
   };
   //AGREGAR VENTA DB
 
+  //Restar cantidades a productos
+  const { submitProducto, productos } = useProductos();
+  let descontarStock = () => {
+    for (let iProduct = 0; iProduct < productos.length; iProduct++) {
+      for (let iCard = 0; iCard < carritoArreglo.length; iCard++) {
+        if (productos[iProduct].id == carritoArreglo[iCard].id) {
+          const newDataProduct = { ...productos[iProduct] };
+          newDataProduct.stock -= carritoArreglo[iCard].cantidad;
+          const stock = 4;
+          //submitProducto({ stock });
+        }
+      }
+    }
+  };
+  //Restar cantidades a productos
+
   const finalizarCompra = () => {
     newCompra = {
       fecha: fechaVenta,
@@ -159,7 +175,7 @@ const Carrito = () => {
       valor: contadorTotal,
     };
     nuevaVenta(newCompra);
-    //descontarStock();
+    descontarStock();
     alert(
       `¡GRACIAS POR TU COMPRA! \n Total productos: ${contadorProductos} \n Total a pagar: ${formatearMoneda(
         contadorTotal

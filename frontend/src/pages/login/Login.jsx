@@ -38,12 +38,9 @@ const Login = () => {
         email,
         password,
       });
-
       setAlerta({}); //Borra alertas
-
       localStorage.setItem("token", data.token); //genera un token de sesion en localStorange
       setAuth(data); //guarda token en contexto autenticacion
-
       navigate("/store-pied-piper");
     } catch (error) {
       setAlerta({
