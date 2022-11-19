@@ -1,12 +1,15 @@
 import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../../config/clienteAxios";
+import useAuth from "../hooks/useAuth";
 
 const ProductosContext = createContext();
 const ProductosProvaider = ({ children }) => {
-  const [productos, setProductos] = useState([]);
+  const [productos, setProductos] = useState({});
   const [alerta, setAlerta] = useState({}); //generar alertas de productos
   const [producto, setProducto] = useState({});
   const [cargando, setCargando] = useState(false);
+
+  const { auth } = useAuth();
 
   //trar productos con useEfect
   useEffect(() => {
@@ -28,7 +31,7 @@ const ProductosProvaider = ({ children }) => {
       }
     };
     obtenerProductos();
-  }, []);
+  }, [auth]);
 
   //trar productos con useEfect
 
@@ -170,6 +173,14 @@ const ProductosProvaider = ({ children }) => {
   };
   //eliminar producto
 
+  //cerrar sesion
+  const cerrarSesionProductos = () => {
+    setProducto({});
+    setProductos({});
+    setAlerta({});
+  };
+  //cerrar sesion
+
   return (
     <ProductosContext.Provider
       value={{
@@ -183,6 +194,7 @@ const ProductosProvaider = ({ children }) => {
         DataToEdit,
         setDataToEdit,
         deleteProyecto,
+        cerrarSesionProductos,
       }}
     >
       {children}

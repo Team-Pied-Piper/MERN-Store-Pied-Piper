@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        setCargando(false);
         return;
       }
       //verificar si hay una sesion activa con JWT
@@ -28,7 +29,9 @@ const AuthProvider = ({ children }) => {
         const { data } = await clienteAxios("/usuarios/perfil", config);
         setAuth(data);
         navigate("/store-pied-piper");
-      } catch (error) {}
+      } catch (error) {
+        setAuth({});
+      }
       setCargando(false);
       //verificar si hay una sesion activa con JWT
     };
@@ -37,8 +40,12 @@ const AuthProvider = ({ children }) => {
 
   //useEfect para validar si existe un token en local storange
 
+  const cerrarSesionAuth = () => {
+    setAuth({});
+  };
+
   return (
-    <AuthContext.Provider value={{ auth, setAuth, cargando }}>
+    <AuthContext.Provider value={{ auth, setAuth, cargando, cerrarSesionAuth }}>
       {children}
     </AuthContext.Provider>
   );
