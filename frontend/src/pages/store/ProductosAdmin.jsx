@@ -2,6 +2,7 @@ import "../../styles/productosAdmin.css";
 import { TablaProductosAdminCabezera } from "./TablaProductosAdminCabezera";
 import { FormularioProductosAdmin } from "./FormularioProductosAdmin";
 import useProductos from "../../hooks/useProductos";
+import { useState } from "react";
 
 const ProductosAdmin = () => {
   const { productos } = useProductos();

@@ -1,7 +1,7 @@
 import "../../styles/tarjetaProductos.css";
 import { Link } from "react-router-dom";
 
-const TarjetaProductos = ({ el }) => {
+const TarjetaProductos = ({ el, agreagarCarrito }) => {
   let { img, nombre, precio, stock, id } = el;
 
   //formateador de moneda
@@ -28,7 +28,17 @@ const TarjetaProductos = ({ el }) => {
             Stock:
             <span className="product__stock-count">{el.stock}</span>
           </p>
-          <button className={el.stock > 0 ? "AddCartBtn" : "NoDisponibleBtn"}>
+          <button
+            className={el.stock > 0 ? "AddCartBtn" : "NoDisponibleBtn"}
+            onClick={
+              el.stock > 0
+                ? () => agreagarCarrito(el)
+                : () =>
+                    alert(
+                      "Lo sentimos en el momento no contamos con este producto. pero pronto lo traeremos de nuevo!"
+                    )
+            }
+          >
             {el.stock > 0 ? "Agragar" : "No Disponible 😢"}
           </button>
         </div>

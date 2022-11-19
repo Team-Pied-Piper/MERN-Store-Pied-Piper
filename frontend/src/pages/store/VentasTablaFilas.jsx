@@ -1,10 +1,10 @@
-const VentasTablaFilas = () => {
+const VentasTablaFilas = ({ el }) => {
   return (
     <tr>
-      <td>fecha</td>
-      <td>id</td>
-      <td>cantidad</td>
-      <td>valor</td>
+      <td>{el.fecha}</td>
+      <td>{el._id}</td>
+      <td>{el.cantidad}</td>
+      <td>{el.valor}</td>
     </tr>
   );
 };

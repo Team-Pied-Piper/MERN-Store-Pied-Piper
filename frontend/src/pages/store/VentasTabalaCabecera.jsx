@@ -1,6 +1,6 @@
 import { VentasTablaFilas } from "./VentasTablaFilas";
 
-const VentasTabalaCabecera = () => {
+const VentasTabalaCabecera = ({ ventas }) => {
   return (
     <div>
       <table>
@@ -13,7 +13,9 @@ const VentasTabalaCabecera = () => {
           </tr>
         </thead>
         <tbody>
-          <VentasTablaFilas />
+          {ventas.map((el) => (
+            <VentasTablaFilas key={el._id} el={el} />
+          ))}
         </tbody>
       </table>
     </div>
